@@ -1,7 +1,9 @@
 import { Star } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { Link } from "react-router-dom";
 
 interface ReviewCardProps {
+  slug: string;
   image: string;
   name: string;
   cuisine: string;
@@ -13,6 +15,7 @@ interface ReviewCardProps {
 }
 
 const ReviewCard = ({
+  slug,
   image,
   name,
   cuisine,
@@ -23,7 +26,8 @@ const ReviewCard = ({
   date,
 }: ReviewCardProps) => {
   return (
-    <article className="group cursor-pointer">
+    <Link to={`/review/${slug}`}>
+      <article className="group cursor-pointer">
       <div className="relative overflow-hidden rounded-lg mb-4">
         <img
           src={image}
@@ -69,6 +73,7 @@ const ReviewCard = ({
         </div>
       </div>
     </article>
+    </Link>
   );
 };
 
