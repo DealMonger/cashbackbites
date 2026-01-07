@@ -11,6 +11,7 @@ import tacosImage from "@/assets/restaurant-tacos.jpg";
 const reviews = [
   {
     id: 1,
+    slug: "osteria-bella-vista",
     image: italianImage,
     name: "Osteria Bella Vista",
     cuisine: "Italian",
@@ -22,6 +23,7 @@ const reviews = [
   },
   {
     id: 2,
+    slug: "menya-ichiban",
     image: ramenImage,
     name: "Menya Ichiban",
     cuisine: "Japanese",
@@ -33,6 +35,7 @@ const reviews = [
   },
   {
     id: 3,
+    slug: "taqueria-la-gloria",
     image: tacosImage,
     name: "Taqueria La Gloria",
     cuisine: "Mexican",
