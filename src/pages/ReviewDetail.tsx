@@ -1,8 +1,8 @@
 import { useParams, Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Badge } from "@/components/ui/badge";
-import { Star, ArrowLeft, CreditCard, Percent, Calendar, MapPin } from "lucide-react";
+import CommentSection from "@/components/CommentSection";
+import { ArrowLeft, DollarSign } from "lucide-react";
 
 import italianImage from "@/assets/restaurant-italian.jpg";
 import ramenImage from "@/assets/restaurant-ramen.jpg";
@@ -13,113 +13,146 @@ const reviewsData: Record<string, {
   image: string;
   name: string;
   cuisine: string;
-  rating: number;
   location: string;
   date: string;
-  cashbackPercent: string;
+  totalSpent: string;
+  totalSaved: string;
   intro: string;
   fullReview: string[];
-  dishes: { name: string; description: string; price: string }[];
-  rewardsBreakdown: { method: string; percent: string; details: string; icon: string }[];
-  tips: string[];
+  savingsBreakdown: string;
+  comments: { id: number; name: string; date: string; content: string; reply?: { content: string; date: string } }[];
 }> = {
   "osteria-bella-vista": {
     id: 1,
     image: italianImage,
-    name: "Osteria Bella Vista",
+    name: "Osteria Bella Vista Review: Amazing Carbonara + How I Saved $12",
     cuisine: "Italian",
-    rating: 5,
-    location: "123 Main Street, Downtown",
+    location: "Downtown",
     date: "January 5, 2026",
-    cashbackPercent: "8%",
-    intro: "The carbonara here is the real deal—silky, peppery, and absolutely divine. Worth every penny, especially when you know the secret to getting 8% back.",
+    totalSpent: "$54",
+    totalSaved: "$12.40",
+    intro: "The carbonara here is the real deal—silky, peppery, and absolutely divine. But the best part? I walked out paying $12 less than the menu price.",
     fullReview: [
-      "Walking into Osteria Bella Vista feels like stepping into a cozy trattoria in Rome. The warm lighting, exposed brick walls, and the gentle hum of Italian conversation create an atmosphere that immediately puts you at ease.",
-      "We started with the burrata appetizer—creamy, fresh, and drizzled with the most fragrant olive oil I've tasted outside of Italy. The bread basket that accompanied it was still warm from the oven.",
-      "The star of the evening was undoubtedly the carbonara. Made the traditional Roman way with guanciale (not bacon!), pecorino Romano, and perfectly emulsified egg yolks, each bite was a masterclass in Italian simplicity. The pasta was cooked al dente, with just enough starchy pasta water worked into the sauce to create that signature silky texture.",
-      "For dessert, the tiramisu was light yet indulgent, with the perfect balance of espresso-soaked ladyfingers and mascarpone cream. A fitting end to an exceptional meal."
+      "Osteria Bella Vista has been on my list for months, and it absolutely lived up to the hype. The atmosphere is cozy and authentic, with exposed brick and soft Italian music setting the perfect mood.",
+      "I ordered the burrata appetizer ($18), the carbonara ($24), and tiramisu ($12). Total bill came to $54 before tip.",
+      "But here's where it gets good—I didn't actually pay $54."
     ],
-    dishes: [
-      { name: "Burrata Appetizer", description: "Fresh burrata with heirloom tomatoes and basil", price: "$18" },
-      { name: "Carbonara", description: "Classic Roman style with guanciale and pecorino", price: "$24" },
-      { name: "Tiramisu", description: "House-made with espresso and mascarpone", price: "$12" }
-    ],
-    rewardsBreakdown: [
-      { method: "Chase Sapphire Preferred", percent: "3x", details: "3x points on dining (worth ~4.5% toward travel)", icon: "💳" },
-      { method: "Rakuten Dining", percent: "5%", details: "Link your card and earn 5% cash back at participating restaurants", icon: "🛒" },
-      { method: "Chase Offers", percent: "Bonus", details: "Check for targeted 10% back offers on Italian restaurants", icon: "🎯" }
-    ],
-    tips: [
-      "Book through Rakuten Dining for an extra 5% cash back on top of your credit card rewards",
-      "Chase Sapphire cardholders can stack with Chase Offers for potential 10%+ total returns",
-      "Visit during Restaurant Week for prix fixe menus at a discount",
-      "Sign up for their email list—they send 15% off coupons for birthdays"
+    savingsBreakdown: `**My exact savings breakdown:**
+
+• **Chase Sapphire Preferred:** 3x points on the $54 = 162 points (worth ~$2.43 toward travel)
+• **Rakuten Dining:** Had my card linked, earned 5% = $2.70 cash back  
+• **Chase Offer:** There was a targeted 15% back offer for this restaurant = $8.10
+• **Birthday signup:** Signed up for their email list last month, got a $2 off coupon
+
+**Total saved: $12.40** (about 23% off my meal!)
+
+Want the same setup? Drop a comment below and I'll send you my referral links for Chase Sapphire and Rakuten—you'll get bonus points/cash when you sign up.`,
+    comments: [
+      {
+        id: 1,
+        name: "Mike T.",
+        date: "Jan 6, 2026",
+        content: "This is awesome! How do I get the Rakuten Dining thing set up? Never heard of it.",
+        reply: {
+          content: "Hey Mike! Rakuten Dining is super easy—you link your credit card and it automatically tracks when you eat at participating restaurants. Here's my referral link: [rakuten.com/r/SAVORY123] You'll get $30 bonus after your first $30 purchase. Let me know if you have questions!",
+          date: "Jan 6, 2026"
+        }
+      },
+      {
+        id: 2,
+        name: "Sarah K.",
+        date: "Jan 7, 2026",
+        content: "Is Chase Sapphire worth the annual fee? I'm on the fence about signing up.",
+        reply: {
+          content: "Great question Sarah! The $95 annual fee is easily worth it if you spend at least $200/month on dining and travel. The 60k signup bonus alone is worth $900+ in travel. I can share my referral link which gives you the best current offer—just reply here or DM me!",
+          date: "Jan 7, 2026"
+        }
+      }
     ]
   },
   "menya-ichiban": {
     id: 2,
     image: ramenImage,
-    name: "Menya Ichiban",
+    name: "Menya Ichiban: The Best Ramen in Town + $8 in Savings",
     cuisine: "Japanese",
-    rating: 4,
-    location: "456 Noodle Lane, Japantown",
+    location: "Japantown",
     date: "January 2, 2026",
-    cashbackPercent: "6%",
-    intro: "Rich tonkotsu broth with perfectly chewy noodles. The chashu melts in your mouth. A hidden gem with even more hidden savings.",
+    totalSpent: "$26",
+    totalSaved: "$8.20",
+    intro: "This tiny ramen shop serves the most authentic tonkotsu I've had outside Japan. And yes, I found ways to save even on a $26 meal.",
     fullReview: [
-      "Menya Ichiban is the kind of ramen shop that ramen purists dream about. Tucked away in a nondescript corner of Japantown, it's easy to miss—but once you find it, you'll never forget the way.",
-      "The tonkotsu broth here is simmered for over 24 hours, resulting in a creamy, pork-bone richness that coats your palate without being overwhelmingly heavy. It's the kind of broth that makes you want to drink every last drop.",
-      "The noodles are made fresh daily, with that perfect chewy texture that Japanese call 'koshi.' You can customize your noodle firmness, but I recommend 'kata' (firm) for the best experience.",
-      "The chashu pork is braised to perfection—fatty yet not greasy, with a caramelized edge from the torch. Add a perfectly soft-boiled ajitama egg, and you have ramen nirvana."
+      "Menya Ichiban is a hidden gem tucked away in Japantown. The line can get long during peak hours, but it's worth every minute of waiting.",
+      "I went with the tonkotsu ramen ($16), added an ajitama egg ($2), and split a plate of gyoza ($8) with my friend. My portion came to $26.",
+      "Here's how I made that even more affordable:"
     ],
-    dishes: [
-      { name: "Tonkotsu Ramen", description: "24-hour pork bone broth with chashu", price: "$16" },
-      { name: "Ajitama Egg", description: "Soft-boiled marinated egg", price: "$2" },
-      { name: "Gyoza", description: "Pan-fried pork dumplings", price: "$8" }
-    ],
-    rewardsBreakdown: [
-      { method: "Amex Gold Card", percent: "4x", details: "4x Membership Rewards on restaurants worldwide", icon: "💳" },
-      { method: "Seated App", percent: "2-30%", details: "Earn rewards for dining at participating restaurants", icon: "📱" },
-      { method: "Amex Offers", percent: "Varies", details: "Check for targeted offers on Japanese restaurants", icon: "🎯" }
-    ],
-    tips: [
-      "Use the Seated app to book and earn up to 30% back in gift cards",
-      "Amex Gold gives 4x points on dining—pair with Seated for double-dipping",
-      "Visit during lunch for slightly lower prices on the same quality ramen",
-      "Ask about their stamp card—10 visits gets you a free bowl"
+    savingsBreakdown: `**My savings breakdown:**
+
+• **Amex Gold Card:** 4x Membership Rewards = 104 points (worth ~$2.08)
+• **Seated App:** Booked through Seated, earned 20% = $5.20 in gift card rewards
+• **Stamp card:** This was my 10th visit, so I'm getting a free bowl next time ($16 value building up!)
+
+**Total immediate savings: $8.20** (about 32% back!)
+
+The Seated app is underrated for places like this. Comment below if you want my strategy for finding Seated restaurants in your area.`,
+    comments: [
+      {
+        id: 1,
+        name: "Jenny L.",
+        date: "Jan 3, 2026",
+        content: "I didn't know Seated worked for ramen places! How do you find which restaurants are on there?",
+        reply: {
+          content: "Jenny! The Seated app lets you search by location and cuisine. I always check it before going out to eat. Here's my referral: [seated.app/r/SAVORY] You'll get $5 toward your first meal. Pro tip: the rewards change daily, so sometimes you can get 30%+ back!",
+          date: "Jan 3, 2026"
+        }
+      }
     ]
   },
   "taqueria-la-gloria": {
     id: 3,
     image: tacosImage,
-    name: "Taqueria La Gloria",
+    name: "Taqueria La Gloria: $9 Tacos That Taste Like $20 (Plus My Savings)",
     cuisine: "Mexican",
-    rating: 5,
-    location: "789 Salsa Street, Mission District",
+    location: "Mission District",
     date: "December 28, 2025",
-    cashbackPercent: "4%",
-    intro: "Authentic al pastor with fresh pineapple and the perfect char. The salsa verde alone is worth the trip. Plus, Tuesday deals make it even sweeter.",
+    totalSpent: "$27",
+    totalSaved: "$6.50",
+    intro: "The best al pastor tacos in the city, hands down. And if you time it right, you can save 20%+ on every visit.",
     fullReview: [
-      "La Gloria doesn't try to be fancy—and that's exactly what makes it exceptional. This is authentic Mexican street food elevated to an art form, served in a no-frills setting that lets the food do all the talking.",
-      "The al pastor here is carved fresh from the trompo, each slice carrying that perfect balance of spiced pork, caramelized pineapple, and smoky char. Topped with fresh cilantro and diced onion, nestled in a warm corn tortilla—it's taco perfection.",
-      "Don't skip the salsa bar. The salsa verde has a bright, tomatillo tang with just enough heat to wake up your taste buds, while the habanero salsa is for those who like to live dangerously. Both are made fresh daily.",
-      "The horchata is house-made and perfectly sweet, with real cinnamon that complements the spicier dishes beautifully."
+      "La Gloria doesn't look like much from the outside, but step inside and you'll see the massive trompo spinning with al pastor pork. That's how you know it's legit.",
+      "I got 3 al pastor tacos ($9), a carnitas plate ($14), and a horchata ($4). Total: $27.",
+      "But I've been coming here strategically:"
     ],
-    dishes: [
-      { name: "Al Pastor Tacos (3)", description: "Spit-roasted pork with pineapple", price: "$9" },
-      { name: "Carnitas Plate", description: "Slow-braised pork with rice and beans", price: "$14" },
-      { name: "Horchata", description: "House-made rice drink with cinnamon", price: "$4" }
-    ],
-    rewardsBreakdown: [
-      { method: "Capital One Savor", percent: "4%", details: "4% cash back on dining and entertainment", icon: "💳" },
-      { method: "Taco Tuesday Special", percent: "20% off", details: "Discounted tacos every Tuesday", icon: "🌮" },
-      { method: "Capital One Offers", percent: "Bonus", details: "Check for targeted local restaurant offers", icon: "🎯" }
-    ],
-    tips: [
-      "Visit on Taco Tuesday for 20% off all tacos",
-      "Capital One Savor gives a flat 4% back on all dining—no rotating categories",
-      "They have a punch card: buy 10 tacos, get 3 free",
-      "Follow them on Instagram for flash deals and secret menu items"
+    savingsBreakdown: `**My savings breakdown:**
+
+• **Capital One Savor:** 4% dining cash back = $1.08
+• **Taco Tuesday:** I specifically came on Tuesday for 20% off tacos = $1.80 saved
+• **Punch card:** Buy 10 tacos, get 3 free. I'm at 7 now, so building toward $9 value
+• **Instagram flash deal:** Showed their story for a free horchata = $4 saved
+
+**Total saved: $6.50** (24% off!)
+
+Taco Tuesday + the Instagram deals are the real hack here. They post flash deals every week. Comment if you want tips on finding the best local restaurant deals!`,
+    comments: [
+      {
+        id: 1,
+        name: "Carlos M.",
+        date: "Dec 29, 2025",
+        content: "Bro I live near here and never knew about the Taco Tuesday deal! Do they have any other weekly specials?",
+        reply: {
+          content: "Carlos! Yes! They do Margarita Monday (half-price margs) and Free Chip Friday if you follow them on Instagram. The IG flash deals are random but usually 1-2x per week. Turn on notifications for their account!",
+          date: "Dec 29, 2025"
+        }
+      },
+      {
+        id: 2,
+        name: "Amanda R.",
+        date: "Dec 30, 2025",
+        content: "Is Capital One Savor better than Chase Sapphire for restaurants?",
+        reply: {
+          content: "Great question Amanda! It depends on your goals. Savor is 4% flat cash back—simple and no transfer hassle. Sapphire is 3x points but those points can be worth 4.5%+ if you transfer to travel partners. I use both! Savor for quick cash back, Sapphire when I'm saving for a trip. Want referral links for either? Happy to share!",
+          date: "Dec 30, 2025"
+        }
+      }
     ]
   }
 };
@@ -145,125 +178,86 @@ const ReviewDetail = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <main>
-        {/* Hero Image */}
-        <div className="relative h-[50vh] overflow-hidden">
+      <main className="pt-20">
+        <article className="container mx-auto px-6 py-12 max-w-3xl">
+          {/* Back Link */}
+          <Link to="/" className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary mb-8 transition-colors">
+            <ArrowLeft size={16} />
+            <span>Back to all reviews</span>
+          </Link>
+
+          {/* Header */}
+          <header className="mb-8">
+            <div className="flex items-center gap-2 mb-4">
+              <span className="text-sm font-medium uppercase tracking-wide text-primary">
+                {review.cuisine}
+              </span>
+              <span className="text-muted-foreground">·</span>
+              <span className="text-sm text-muted-foreground">{review.location}</span>
+              <span className="text-muted-foreground">·</span>
+              <span className="text-sm text-muted-foreground">{review.date}</span>
+            </div>
+            
+            <h1 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-6 leading-tight">
+              {review.name}
+            </h1>
+
+            {/* Savings Summary */}
+            <div className="flex items-center gap-6 p-4 bg-primary/5 rounded-lg border border-primary/20">
+              <div className="flex items-center gap-2">
+                <DollarSign className="text-primary" size={20} />
+                <div>
+                  <p className="text-sm text-muted-foreground">Spent</p>
+                  <p className="font-semibold text-foreground">{review.totalSpent}</p>
+                </div>
+              </div>
+              <div className="h-8 w-px bg-border" />
+              <div>
+                <p className="text-sm text-muted-foreground">Saved</p>
+                <p className="font-semibold text-primary">{review.totalSaved}</p>
+              </div>
+            </div>
+          </header>
+
+          {/* Featured Image */}
           <img 
             src={review.image} 
             alt={review.name}
-            className="w-full h-full object-cover"
+            className="w-full aspect-video object-cover rounded-lg mb-8"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0 p-8">
-            <div className="container mx-auto">
-              <Link to="/#reviews" className="inline-flex items-center gap-2 text-primary-foreground/80 hover:text-primary-foreground mb-4 transition-colors">
-                <ArrowLeft size={16} />
-                <span>Back to Reviews</span>
-              </Link>
-            </div>
-          </div>
-        </div>
 
-        {/* Article Content */}
-        <article className="container mx-auto px-6 py-12 max-w-4xl">
-          {/* Header */}
-          <header className="mb-12">
-            <div className="flex items-center gap-3 mb-4">
-              <Badge variant="terracotta">{review.cuisine}</Badge>
-              <Badge variant="golden" className="gap-1">
-                <Percent size={12} />
-                {review.cashbackPercent} Back
-              </Badge>
-            </div>
-            
-            <h1 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-4">
-              {review.name}
-            </h1>
-            
-            <div className="flex flex-wrap items-center gap-4 text-muted-foreground mb-6">
-              <div className="flex items-center gap-1">
-                <MapPin size={16} />
-                <span>{review.location}</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <Calendar size={16} />
-                <span>{review.date}</span>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-1 mb-6">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Star
-                  key={i}
-                  size={24}
-                  className={i < review.rating ? "fill-golden text-golden" : "text-muted"}
-                />
-              ))}
-            </div>
-
-            <p className="text-xl text-muted-foreground leading-relaxed italic border-l-4 border-primary pl-6">
-              {review.intro}
-            </p>
-          </header>
+          {/* Intro */}
+          <p className="text-lg text-foreground/90 leading-relaxed mb-8">
+            {review.intro}
+          </p>
 
           {/* Full Review */}
-          <section className="mb-12">
-            <h2 className="font-serif text-2xl font-bold text-foreground mb-6">The Full Experience</h2>
-            <div className="prose prose-lg max-w-none">
-              {review.fullReview.map((paragraph, idx) => (
-                <p key={idx} className="text-foreground/90 leading-relaxed mb-4">
-                  {paragraph}
-                </p>
-              ))}
-            </div>
-          </section>
+          <div className="prose prose-lg max-w-none mb-12">
+            {review.fullReview.map((paragraph, idx) => (
+              <p key={idx} className="text-foreground/80 leading-relaxed mb-4">
+                {paragraph}
+              </p>
+            ))}
+          </div>
 
-          {/* What We Ordered */}
-          <section className="mb-12 bg-muted/30 rounded-2xl p-8">
-            <h2 className="font-serif text-2xl font-bold text-foreground mb-6">What We Ordered</h2>
-            <div className="space-y-4">
-              {review.dishes.map((dish, idx) => (
-                <div key={idx} className="flex justify-between items-start border-b border-border pb-4 last:border-0 last:pb-0">
-                  <div>
-                    <h3 className="font-semibold text-foreground">{dish.name}</h3>
-                    <p className="text-sm text-muted-foreground">{dish.description}</p>
-                  </div>
-                  <span className="font-semibold text-primary">{dish.price}</span>
-                </div>
-              ))}
+          {/* Savings Breakdown */}
+          <div className="bg-muted/50 rounded-xl p-6 mb-12">
+            <h2 className="font-serif text-xl font-bold text-foreground mb-4">💰 How I Saved</h2>
+            <div className="prose prose-sm max-w-none text-foreground/80 whitespace-pre-line">
+              {review.savingsBreakdown.split('\n').map((line, idx) => {
+                if (line.startsWith('**') && line.endsWith('**')) {
+                  return <p key={idx} className="font-semibold text-foreground mt-4 mb-2">{line.replace(/\*\*/g, '')}</p>;
+                }
+                if (line.startsWith('•')) {
+                  return <p key={idx} className="ml-4 mb-1">{line}</p>;
+                }
+                return <p key={idx} className="mb-2">{line}</p>;
+              })}
             </div>
-          </section>
+          </div>
 
-          {/* Rewards Breakdown */}
-          <section className="mb-12">
-            <div className="flex items-center gap-2 mb-6">
-              <CreditCard className="text-primary" size={24} />
-              <h2 className="font-serif text-2xl font-bold text-foreground">Rewards Breakdown</h2>
-            </div>
-            <div className="grid md:grid-cols-3 gap-4">
-              {review.rewardsBreakdown.map((reward, idx) => (
-                <div key={idx} className="bg-card border border-border rounded-xl p-6 hover:shadow-lg transition-shadow">
-                  <div className="text-3xl mb-3">{reward.icon}</div>
-                  <h3 className="font-semibold text-foreground mb-1">{reward.method}</h3>
-                  <p className="text-2xl font-bold text-primary mb-2">{reward.percent}</p>
-                  <p className="text-sm text-muted-foreground">{reward.details}</p>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Pro Tips */}
-          <section className="bg-primary/10 rounded-2xl p-8">
-            <h2 className="font-serif text-2xl font-bold text-foreground mb-6">💰 Pro Tips to Maximize Savings</h2>
-            <ul className="space-y-3">
-              {review.tips.map((tip, idx) => (
-                <li key={idx} className="flex items-start gap-3">
-                  <span className="text-primary font-bold">•</span>
-                  <span className="text-foreground/90">{tip}</span>
-                </li>
-              ))}
-            </ul>
-          </section>
+          {/* Comments Section */}
+          <CommentSection comments={review.comments} />
         </article>
       </main>
       <Footer />
