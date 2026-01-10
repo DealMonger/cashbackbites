@@ -1,7 +1,6 @@
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import ReviewCard from "@/components/ReviewCard";
-import RewardsHighlight from "@/components/RewardsHighlight";
 import Footer from "@/components/Footer";
 
 import italianImage from "@/assets/restaurant-italian.jpg";
@@ -13,36 +12,30 @@ const reviews = [
     id: 1,
     slug: "osteria-bella-vista",
     image: italianImage,
-    name: "Osteria Bella Vista",
+    name: "Osteria Bella Vista Review: Amazing Carbonara + How I Saved $12",
     cuisine: "Italian",
-    rating: 5,
-    excerpt: "The carbonara here is the real deal—silky, peppery, and absolutely divine. Worth every penny, especially when you know the secret to getting 8% back.",
-    cashbackTip: "Use Chase Sapphire Preferred + Rakuten for 8% back",
-    cashbackPercent: "8% Back",
+    excerpt: "The carbonara here is the real deal—silky, peppery, and absolutely divine. But the best part? I walked out paying $12 less than the menu price.",
+    savings: "$12.40",
     date: "Jan 5, 2026",
   },
   {
     id: 2,
     slug: "menya-ichiban",
     image: ramenImage,
-    name: "Menya Ichiban",
+    name: "Menya Ichiban: The Best Ramen in Town + $8 in Savings",
     cuisine: "Japanese",
-    rating: 4,
-    excerpt: "Rich tonkotsu broth with perfectly chewy noodles. The chashu melts in your mouth. A hidden gem with even more hidden savings.",
-    cashbackTip: "Stack Amex Gold (4x) + Seated app for bonus rewards",
-    cashbackPercent: "6% Back",
+    excerpt: "This tiny ramen shop serves the most authentic tonkotsu I've had outside Japan. And yes, I found ways to save even on a $26 meal.",
+    savings: "$8.20",
     date: "Jan 2, 2026",
   },
   {
     id: 3,
     slug: "taqueria-la-gloria",
     image: tacosImage,
-    name: "Taqueria La Gloria",
+    name: "Taqueria La Gloria: $9 Tacos That Taste Like $20 (Plus My Savings)",
     cuisine: "Mexican",
-    rating: 5,
-    excerpt: "Authentic al pastor with fresh pineapple and the perfect char. The salsa verde alone is worth the trip. Plus, Tuesday deals make it even sweeter.",
-    cashbackTip: "Visit on Taco Tuesday + Capital One Savor for 4% back",
-    cashbackPercent: "4% Back",
+    excerpt: "The best al pastor tacos in the city, hands down. And if you time it right, you can save 20%+ on every visit.",
+    savings: "$6.50",
     date: "Dec 28, 2025",
   },
 ];
@@ -55,36 +48,22 @@ const Index = () => {
         <HeroSection />
         
         {/* Reviews Section */}
-        <section id="reviews" className="py-20">
-          <div className="container mx-auto px-6">
-            <div className="text-center mb-12">
-              <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">
-                Fresh from the Table
-              </p>
-              <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Latest Restaurant Reviews
-              </h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
-                Honest takes on the best (and sometimes not-so-best) spots in town, 
-                complete with strategies to maximize your rewards.
-              </p>
-            </div>
+        <section id="reviews" className="py-12">
+          <div className="container mx-auto px-6 max-w-4xl">
+            <h2 className="font-serif text-2xl font-bold text-foreground mb-2">
+              Latest Reviews
+            </h2>
+            <p className="text-muted-foreground mb-8">
+              Real restaurants, real savings. Click any review to see exactly how I saved.
+            </p>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div>
               {reviews.map((review) => (
                 <ReviewCard key={review.id} {...review} />
               ))}
             </div>
-
-            <div className="text-center mt-12">
-              <button className="border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground px-8 py-3 rounded-lg font-semibold transition-all">
-                View All Reviews
-              </button>
-            </div>
           </div>
         </section>
-
-        <RewardsHighlight />
       </main>
       <Footer />
     </div>
