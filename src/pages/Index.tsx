@@ -1,6 +1,9 @@
+import { useState, useMemo } from "react";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
+import SearchBar from "@/components/SearchBar";
 import ReviewCard from "@/components/ReviewCard";
+import AffiliateLinks from "@/components/AffiliateLinks";
 import Footer from "@/components/Footer";
 
 import italianImage from "@/assets/restaurant-italian.jpg";
@@ -41,11 +44,25 @@ const reviews = [
 ];
 
 const Index = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filteredReviews = useMemo(() => {
+    if (!searchQuery.trim()) return reviews;
+    const query = searchQuery.toLowerCase();
+    return reviews.filter(
+      (review) =>
+        review.name.toLowerCase().includes(query) ||
+        review.cuisine.toLowerCase().includes(query) ||
+        review.excerpt.toLowerCase().includes(query)
+    );
+  }, [searchQuery]);
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
       <main>
         <HeroSection />
+        <SearchBar value={searchQuery} onChange={setSearchQuery} />
         
         {/* Reviews Section */}
         <section id="reviews" className="py-12">
@@ -58,12 +75,20 @@ const Index = () => {
             </p>
 
             <div>
-              {reviews.map((review) => (
-                <ReviewCard key={review.id} {...review} />
-              ))}
+              {filteredReviews.length > 0 ? (
+                filteredReviews.map((review) => (
+                  <ReviewCard key={review.id} {...review} />
+                ))
+              ) : (
+                <p className="text-muted-foreground text-center py-8">
+                  No reviews found matching "{searchQuery}"
+                </p>
+              )}
             </div>
           </div>
         </section>
+
+        <AffiliateLinks />
       </main>
       <Footer />
     </div>
