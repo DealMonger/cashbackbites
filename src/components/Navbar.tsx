@@ -16,7 +16,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-14">
           {/* Logo */}
           <Link to="/" className="font-serif text-xl font-bold text-foreground hover:text-primary transition-colors">
-            Savory Secrets
+            Cash Back Bites
           </Link>
 
           {/* Desktop Navigation */}
