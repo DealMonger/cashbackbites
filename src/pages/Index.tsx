@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
+import IntroSection from "@/components/IntroSection";
 import SearchBar from "@/components/SearchBar";
 import ReviewCard from "@/components/ReviewCard";
 import AffiliateLinks from "@/components/AffiliateLinks";
@@ -62,6 +63,7 @@ const Index = () => {
       <Navbar />
       <main>
         <HeroSection />
+        <IntroSection />
         <SearchBar value={searchQuery} onChange={setSearchQuery} />
         
         {/* Reviews Section */}
