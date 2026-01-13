@@ -5,7 +5,7 @@ const IntroSection = () => {
           Why Cash Back Bites?
         </h2>
         <div className="space-y-4 text-muted-foreground leading-relaxed">
-          <p>Who doesn't enjoy a nice meal out? For many people, going out for a meal has become too expensive. After years of stacking credit card rewards, cashback apps, and loyalty programs, I realized I was saving hundreds of dollars a month on dining—and nobody was talking about it.</p>
+          <p>Who doesn't enjoy a nice meal out? For many people, going out for a meal has become too expensive. As a person who loves a great deal, I spent years experimenting with stacking credit card rewards, cashback apps, and loyalty programs, I realized I was saving hundreds of dollars a month on dining—and nobody was talking about it.</p>
           <p>
             <strong className="text-foreground">Cash Back Bites</strong> is my way of sharing those secrets. 
             Every review includes the exact strategies I used to save money, from the credit card I paid with 
