@@ -10,8 +10,7 @@ const IntroSection = () => {
             Every review includes the exact strategies I used to save money, from the credit card I paid with 
             to the apps I checked before walking in.
           </p>
-          <p>
-            My mission is simple: <em className="text-foreground">help you eat better for less.</em> Drop a 
+          <p>My mission is simple: help you eat better for less. Drop a comment on any review, and I'll personally share the referral links and step-by-step instructions to get you started. Once you know the formula, you will eat, save, and repeat!<em className="text-foreground">help you eat better for less.</em> Drop a 
             comment on any review, and I'll personally share the referral links and step-by-step instructions 
             to get you started.
           </p>
