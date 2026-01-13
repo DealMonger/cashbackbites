@@ -1,16 +1,11 @@
 const IntroSection = () => {
-  return (
-    <section className="py-12 border-b border-border">
+  return <section className="py-12 border-b border-border">
       <div className="container mx-auto px-6 max-w-3xl">
         <h2 className="font-serif text-2xl font-bold text-foreground mb-4">
           Why Cash Back Bites?
         </h2>
         <div className="space-y-4 text-muted-foreground leading-relaxed">
-          <p>
-            I love eating out, but I hate paying full price. After years of stacking credit card rewards, 
-            cashback apps, and loyalty programs, I realized I was saving hundreds of dollars a month on 
-            dining—and nobody was talking about it.
-          </p>
+          <p>Who doesn't enjoy a nice meal out? For many people, going out for a meal has become too expensive. After years of stacking credit card rewards, cashback apps, and loyalty programs, I realized I was saving hundreds of dollars a month on dining—and nobody was talking about it.</p>
           <p>
             <strong className="text-foreground">Cash Back Bites</strong> is my way of sharing those secrets. 
             Every review includes the exact strategies I used to save money, from the credit card I paid with 
@@ -23,8 +18,6 @@ const IntroSection = () => {
           </p>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default IntroSection;
